@@ -84,3 +84,17 @@ If the parameter name is a single character, it will be treated as a short name.
 ```python
 a: int = Argument() # parser.add_argument('-a', type=int)
 ```
+
+### Inheritance
+
+`typed_argparse` supports inherited argument classes. For example:
+
+```python
+class BaseArgs:
+    arg1: int = Argument()
+
+class DerivedArgs(BaseArgs):
+    arg2: int = Argument()
+```
+
+`DerivedArgs` will have both `arg1` and `arg2` arguments.

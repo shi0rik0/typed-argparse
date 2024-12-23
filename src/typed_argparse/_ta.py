@@ -19,7 +19,10 @@ class TypedArgumentParser:
     def parse_args(self, out: Any, args: Optional[Sequence[str]] = None):
         parser = argparse.ArgumentParser(**self._kwargs)
 
-        hints = get_type_hints(out)
+        hints = {}
+        for i in out.__class__.__mro__:
+            hints.update(get_type_hints(i))
+
         for name, hint in hints.items():
             value = getattr(out, name, None)
             if not isinstance(value, Argument):
