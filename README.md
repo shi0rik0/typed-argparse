@@ -98,3 +98,13 @@ class DerivedArgs(BaseArgs):
 ```
 
 `DerivedArgs` will have both `arg1` and `arg2` arguments.
+
+### List Arguments
+
+You can use `typing.List` and `nargs` parameter to specify a argument that accepts multiple values. For example:
+
+```python
+from typing import List
+
+names: List[str] = Argument(nargs='+') # parser.add_argument('--names', type=str, nargs='+')
+```

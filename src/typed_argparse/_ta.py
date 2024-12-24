@@ -1,5 +1,5 @@
 import argparse
-from typing import Any, overload, Optional, get_type_hints, Sequence, Union
+from typing import Any, overload, Optional, get_type_hints, Sequence, Union, get_origin, get_args
 
 
 class TypedArgumentParser:
@@ -31,7 +31,10 @@ class TypedArgumentParser:
             arg_name = self._var_name_to_arg_name(name)
             kwargs = value._kwargs
             if kwargs.get('action') not in ['store_true', 'store_false']:
-                kwargs['type'] = hint
+                if get_origin(hint) is list:
+                    kwargs['type'] = get_args(hint)[0]
+                else:
+                    kwargs['type'] = hint
             if value._positional:
                 parser.add_argument(arg_name, **kwargs)
                 continue
